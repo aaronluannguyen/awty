@@ -18,19 +18,25 @@ class MainActivity : AppCompatActivity() {
         btnStartStop.setText(setStartOrStopBtn(startBool))
 
         btnStartStop.setOnClickListener {
+            var phone = ToPhoneNumber.text.toString()
+            var message = Message.text.toString()
+            var minutes = MinuteInterval.text.toString()
+
+            // Handle start btn click when startBool = true
+            // Handle stop btn click when startBool = false
             if (startBool) {
                 // Check if clickable by making sure all fields are valid
                 // Once they are valid switch the startBool boolean to get start/stop swap on btn text
-                ready = checkInputFieldsAreValid(ToPhoneNumber.text.toString(), Message.text.toString(), MinuteInterval.text.toString())
-                Log.i("BTN STATUS", ready.toString())
-                Log.i("BTN STATUS", ToPhoneNumber.text.toString().length.toString())
+                ready = checkInputFieldsAreValid(phone, message, minutes)
                 if (ready) {
                     startBool = !startBool
                     var btnText = setStartOrStopBtn(startBool)
                     btnStartStop.setText(btnText)
                     // Run function that repeatedly sends toast messages for every x minute
+                    Log.i("BTN", formatPhoneNumber(phone))
                 }
             } else {
+                // End toast message function here
 
             }
         }
