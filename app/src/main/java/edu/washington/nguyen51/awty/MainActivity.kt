@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                     var btnText = setStartOrStopBtn(startBool)
                     btnStartStop.setText(btnText)
                     // Run function that repeatedly sends toast messages for every x minute
-                    Log.i("BTN", formatPhoneNumber(phone))
+
                 }
             } else {
                 // End toast message function here

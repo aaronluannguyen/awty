@@ -48,3 +48,13 @@ fun formatPhoneNumber(num: String): String {
     var phoneNum = "(" + firstThree + ")" + " " + secondThree + "-" + lastFour
     return phoneNum
 }
+
+fun toastMessages(start: Boolean, phone: String, message: String, minutes: String) {
+    if (start) {
+        var phone = formatPhoneNumber(phone)
+        var toastMessage = phone + ":" + message
+        // Implement timing function and showing toast message
+    } else {
+        // Handle stopping the toast messages
+    }
+}
