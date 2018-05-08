@@ -16,31 +16,34 @@ fun setStartOrStopBtn(start: Boolean): String {
     }
 }
 
-fun checkPhoneNumber(num: String): Boolean {
+fun checkPhoneNumber(num: String, context: Context?): Boolean {
     if (num.length == 10) {
         return true
     }
+    Toast.makeText(context, "Invalid Phone Number", Toast.LENGTH_LONG).show()
     return false
 }
 
-fun checkMessage(message: String): Boolean {
+fun checkMessage(message: String, context: Context?): Boolean {
     if (message != "") {
         return true
     }
+    Toast.makeText(context, "Invalid Message: Must not be empty", Toast.LENGTH_LONG).show()
     return false
 }
 
-fun checkMinuteInterval(time: String): Boolean {
+fun checkMinuteInterval(time: String, context: Context?): Boolean {
     if (time != "") {
         return true
     }
+    Toast.makeText(context, "Invalid Minute Interval: Must be an integer", Toast.LENGTH_LONG).show()
     return false
 }
 
-fun checkInputFieldsAreValid(phone: String, message: String, time:String): Boolean {
-    var phoneInput = checkPhoneNumber(phone)
-    var messageInput = checkMessage(message)
-    var timeInput = checkMinuteInterval(time)
+fun checkInputFieldsAreValid(context: Context?, phone: String, message: String, time:String): Boolean {
+    var phoneInput = checkPhoneNumber(phone, context)
+    var messageInput = checkMessage(message, context)
+    var timeInput = checkMinuteInterval(time, context)
 
     if (phoneInput == false || messageInput == false || timeInput == false) {
         return false

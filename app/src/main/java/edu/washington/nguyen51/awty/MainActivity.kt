@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             if (startBool) {
                 // Check if clickable by making sure all fields are valid
                 // Once they are valid switch the startBool boolean to get start/stop swap on btn text
-                ready = checkInputFieldsAreValid(phone, message, minutes)
+                ready = checkInputFieldsAreValid(this, phone, message, minutes)
                 if (ready) {
                     startBool = !startBool
                     var btnText = setStartOrStopBtn(startBool)
