@@ -1,10 +1,11 @@
 package edu.washington.nguyen51.awty
 
+import android.app.Activity
+import android.app.AlarmManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -12,6 +13,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var alarmManager = getSystemService(Activity.ALARM_SERVICE) as AlarmManager
 
         var startBool = true
         var ready = false
@@ -33,11 +36,14 @@ class MainActivity : AppCompatActivity() {
                     var btnText = setStartOrStopBtn(startBool)
                     btnStartStop.setText(btnText)
                     // Run function that repeatedly sends toast messages for every x minute
-
+                    toastMessages(startBool, phone, message, minutes, alarmManager, this)
                 }
             } else {
                 // End toast message function here
-
+                startBool = !startBool
+                var btnText = setStartOrStopBtn(startBool)
+                btnStartStop.setText(btnText)
+                toastMessages(startBool, phone, message, minutes, alarmManager, this)
             }
         }
     }
