@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.SystemClock
+import android.telephony.SmsManager
 import android.widget.Toast
 
 fun setStartOrStopBtn(start: Boolean): String {
@@ -68,7 +69,7 @@ fun toastMessages(start: Boolean, phone: String, message: String, minutes: Strin
         var minuteInteveral = calculateMinute(minutes.toInt()).toLong()
         var toastMessage = phone + ": " + message
         // Implement timing function and showing toast message
-        context?.registerReceiver(MyReceiver(toastMessage), intentFilter)
+        context?.registerReceiver(MyReceiver(toastMessage, phone), intentFilter)
         alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + minuteInteveral, minuteInteveral, pendingIntent)
     } else {
         // Handle stopping the toast messages
@@ -76,10 +77,12 @@ fun toastMessages(start: Boolean, phone: String, message: String, minutes: Strin
     }
 }
 
-class MyReceiver(message: String): BroadcastReceiver() {
-    private var toastMessage = message
+class MyReceiver(message: String, phone: String): BroadcastReceiver() {
+    private var txtMessage = message
+    private var phone = phone
+    val smsMnger = SmsManager.getDefault()
     override fun onReceive(context: Context?, intent: Intent?) {
-        Toast.makeText(context, toastMessage, Toast.LENGTH_LONG).show()
+        smsMnger.sendTextMessage(phone, null, txtMessage, null, null)
     }
 }
 
