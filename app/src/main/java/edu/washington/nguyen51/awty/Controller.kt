@@ -83,6 +83,7 @@ class MyReceiver(message: String, phone: String): BroadcastReceiver() {
     val smsMnger = SmsManager.getDefault()
     override fun onReceive(context: Context?, intent: Intent?) {
         smsMnger.sendTextMessage(phone, null, txtMessage, null, null)
+        Toast.makeText(context, "Sent sms message!", Toast.LENGTH_LONG).show()
     }
 }
 

@@ -2,10 +2,11 @@ package edu.washington.nguyen51.awty
 
 import android.app.Activity
 import android.app.AlarmManager
+import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -14,8 +15,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var alarmManager = getSystemService(Activity.ALARM_SERVICE) as AlarmManager
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            getPermission()
+        } else {
+            startMain()
+        }
 
+
+    }
+
+    fun getPermission() {
+        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.SEND_SMS), 1)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        startMain()
+    }
+
+    fun startMain() {
+        var alarmManager = getSystemService(Activity.ALARM_SERVICE) as AlarmManager
         var startBool = true
         var ready = false
         btnStartStop.setText(setStartOrStopBtn(startBool))
